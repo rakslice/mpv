@@ -27,3 +27,12 @@ on_failure:
 
 cache:
   - C:\msys64\var\cache\pacman\pkg
+
+after_build:
+  - mkdir c:\snapshots
+  - 7z a c:\snapshots\mpv_%MSYSTEM%_snapshot.zip . -x!.git
+  - copy /y c:\snapshots\mpv_%MSYSTEM%_snapshot.zip .
+  
+artifacts:
+  - path: mpv_$(MSYSTEM)_snapshot.zip
+    name: mpv windows $(MSYSTEM) snapshot zip
