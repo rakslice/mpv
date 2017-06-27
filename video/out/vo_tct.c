@@ -179,7 +179,7 @@ static void get_win_size(struct vo *vo, int *out_width, int *out_height) {
     struct priv *p = vo->priv;
     *out_width = DEFAULT_WIDTH;
     *out_height = DEFAULT_HEIGHT;
-#if HAVE_POSIX
+#if HAVE_POSIX && !defined(__sun)
     struct winsize winsize;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &winsize) >= 0) {
         *out_width = winsize.ws_col;
