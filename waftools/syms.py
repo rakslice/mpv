@@ -45,7 +45,11 @@ def do_the_symbol_stuff(self):
     elif self.env.DEST_BINFMT == 'pe': #gcc on windows takes *.def as an additional input
         self.link_task.inputs.append(tsk.outputs[0])
     elif self.env.DEST_BINFMT == 'elf':
-        self.link_task.env.append_value('LINKFLAGS', ['-Wl,-version-script', '-Wl,' + tsk.outputs[0].bldpath()])
+        if self.env.DEST_OS == "sunos":
+            ld_version_script_option = "-M"
+        else:
+            ld_version_script_option = "-version-script"
+        self.link_task.env.append_value('LINKFLAGS', ['-Wl,' + ld_version_script_option, '-Wl,' + tsk.outputs[0].bldpath()])
     elif self.env.DEST_BINFMT == 'mac-o':
         self.link_task.env.append_value('LINKFLAGS', ['-exported_symbols_list', tsk.outputs[0].bldpath()])
     else:
