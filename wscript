@@ -190,6 +190,10 @@ main_dependencies = [
         'deps': [ 'pthreads' ],
         'func': check_cc(lib='rt')
     }, {
+        'name': 'libsocket',
+        'desc': 'linking with -lsocket',
+        'func': check_cc(lib='socket')
+    }, {
         'name': '--iconv',
         'desc': 'iconv',
         'func': check_iconv,
